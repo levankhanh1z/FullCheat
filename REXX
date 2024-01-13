@@ -1,11 +1,11 @@
-local showText = true -- Change to false if you don't want to see the esp ore text
+local showText = true -- Đặt thành false nếu bạn không muốn thấy văn bản esp của khoáng sản
 
 if game.PlaceId == 8549934015 then
     allowedOres = {
         Magma = {Color = Color3.new(1, 0, 0)}, -- Magma màu đỏ
         Stone = {Color = Color3.new(0, 0, 1)}, -- Stone màu xanh
         Copper = {Color = Color3.new(1, 0.5, 0)}, -- Copper màu cam
-        -- Thêm các ore khác với màu tương ứng
+        -- Thêm các khoáng sản khác với màu tương ứng
     }
 else
     if game.PlaceId == 14550379349 then
@@ -13,7 +13,7 @@ else
             Sodium = {Color = Color3.new(1, 1, 0)}, -- Sodium màu vàng
             Eboxylite = {Color = Color3.new(0, 1, 0)}, -- Eboxylite màu lục
             Plerivium = {Color = Color3.new(1, 0, 1)}, -- Plerivium màu hồng
-            -- Thêm các ore khác với màu tương ứng
+            -- Thêm các khoáng sản khác với màu tương ứng
         }
     end
 end
