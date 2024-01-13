@@ -20,6 +20,7 @@ end
 
 local folder = game:GetService("Workspace").Mine
 local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
 local function isValidName(name)
     return allowedOres[name] ~= nil
@@ -39,19 +40,29 @@ local function createESP(primary)
 
         local billboard = Instance.new("BillboardGui", box)
         billboard.AlwaysOnTop = true
-        billboard.Size = UDim2.new(0, 200, 0, 30)
+        billboard.Size = UDim2.new(0, 200, 0, 60)
         billboard.StudsOffset = Vector3.new(0, 3, 0)
 
         local nameLabel = Instance.new("TextLabel", billboard)
         nameLabel.BackgroundTransparency = 1
-        nameLabel.Size = UDim2.new(1, 0, 0.5, 0)
+        nameLabel.Size = UDim2.new(1, 0, 0.333, 0)
         nameLabel.Text = primary.Name
         nameLabel.Font = Enum.Font.GothamSemibold
         nameLabel.TextColor3 = Color3.new(1, 1, 1)
         nameLabel.TextScaled = true
 
+        local distanceLabel = Instance.new("TextLabel", billboard)
+        distanceLabel.BackgroundTransparency = 1
+        distanceLabel.Size = UDim2.new(1, 0, 0.333, 0)
+        distanceLabel.Position = UDim2.new(0, 0, 0.333, 0)
+        distanceLabel.Text = "Distance: " .. math.floor((LocalPlayer.Character.HumanoidRootPart.Position - primary.Position).Magnitude) .. " studs"
+        distanceLabel.Font = Enum.Font.GothamSemibold
+        distanceLabel.TextColor3 = Color3.new(1, 1, 1)
+        distanceLabel.TextScaled = true
+
         if not showText then
-            nameLabel.Visible = true -- Ẩn tên nếu showText là false
+            nameLabel.Visible = false -- Ẩn tên nếu showText là false
+            distanceLabel.Position = UDim2.new(0, 0, 0.5, 0)
         end
     else
         primary.Transparency = 0.5
