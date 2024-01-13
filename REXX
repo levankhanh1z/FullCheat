@@ -1,0 +1,64 @@
+local showText = true -- Change to false if you don't want to see the esp ore text
+
+if game.PlaceId == 8549934015 then
+    allowedOres = {"Magma", "Stone", "Copper", "Basalt", "Amber", "Diorite", "Coal", "Crystallized Stone", "Nickel", "Bedrock", "Gold", "Granite", "Iron", "Marble", "Etherstone", "Prismatistone","Silver","Obsidian","Ice","Voidstone","Ruby","Celestone","Mantle","Goldstone","Barrier","Quartz","Reflectistone","Emerald","Bismuth"}
+else
+    if game.PlaceId == 14550379349 then
+        allowedOres = {"Sodium", "Eboxylite", "Plerivium"}
+    end
+end
+
+local folder = game:GetService("Workspace").Mine
+local Players = game:GetService("Players")
+
+local function isValidName(name)
+    for _, allowedName in pairs(allowedOres) do
+        if name == allowedName then
+            return true
+        end
+    end
+    return false
+end
+
+local function createESP(primary)
+    local box = Instance.new("BoxHandleAdornment", primary)
+    box.Adornee = primary
+    box.AlwaysOnTop = true
+    box.ZIndex = 5
+    box.Size = primary.Size + Vector3.new(0.1, 0.1, 0.1)
+    box.Transparency = 0.5
+    box.Color = Color3.new(1, 0, 0) -- You can customize the color
+
+    local billboard = Instance.new("BillboardGui", box)
+    billboard.AlwaysOnTop = true
+    billboard.Size = UDim2.new(0, 200, 0, 30)
+    billboard.StudsOffset = Vector3.new(0, 3, 0)
+
+    local nameLabel = Instance.new("TextLabel", billboard)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Size = UDim2.new(1, 0, 0.5, 0)
+    nameLabel.Text = primary.Name
+    nameLabel.Font = Enum.Font.GothamSemibold
+    nameLabel.TextColor3 = Color3.new(1, 1, 1)
+    nameLabel.TextScaled = true
+
+    if not showText then
+        nameLabel.Visible = false -- Ẩn tên nếu showText là false
+    end
+end
+
+local function isOreAllowed(block)
+    if block:IsA("BasePart") and isValidName(block.Name) then
+        createESP(block)
+    else
+        block.Transparency = 0.5
+    end
+end
+
+for _, part in pairs(folder:GetChildren()) do
+    isOreAllowed(part)
+end
+
+folder.ChildAdded:Connect(function(child)
+    isOreAllowed(child)
+end)
